@@ -1,10 +1,9 @@
 package com.turkoglu.composedeneme.domain.model
 
-data class Movie (
+data class Movie(
     val id: Int,
-    val overview: String,
-    val popularity: Double,
-    val posterImage: String,
-    val releaseDate: String,
-    val title: String
+    val title: String,
+    val description: String,
+    val imageUrl: String,
+    val releaseDate: String
 )

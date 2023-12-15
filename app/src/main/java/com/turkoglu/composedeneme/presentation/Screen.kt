@@ -8,8 +8,8 @@ import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class Screen(var route: String, val icon: ImageVector?, var title: String) {
-    object Home : Screen("Home", Icons.Rounded.Home, "Home")
-    object Search : Screen("Search", Icons.Rounded.Search, "Search")
-    object Fav : Screen("Fav", Icons.Rounded.Favorite, "Fav")
-    object Settings : Screen("Settings", Icons.Rounded.Settings, "Settings")
+    object HomeScreen : Screen("Home", Icons.Rounded.Home, "Home")
+    object SearchScreen : Screen("Search", Icons.Rounded.Search, "Search")
+    object FavScreen : Screen("Fav", Icons.Rounded.Favorite, "Fav")
+    object SettingsScreen : Screen("Settings", Icons.Rounded.Settings, "Settings")
 }

@@ -1,4 +1,4 @@
-package com.turkoglu.composedeneme
+package com.turkoglu.composedeneme.presentation
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -23,13 +22,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.turkoglu.composedeneme.presentation.Screen
 import com.turkoglu.composedeneme.presentation.fav.view.FavScreen
 import com.turkoglu.composedeneme.presentation.home.view.HomeScreen
 import com.turkoglu.composedeneme.presentation.search.views.SearchScreen
@@ -65,13 +64,13 @@ fun MainScreen(
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
-        Screen.Home,
-        Screen.Search,
-        Screen.Fav,
-        Screen.Settings,
+        Screen.HomeScreen,
+        Screen.SearchScreen,
+        Screen.FavScreen,
+        Screen.SettingsScreen,
     )
     var selectedItem by remember { mutableIntStateOf(0) }
-    var currentRoute by remember { mutableStateOf(Screen.Home.route) }
+    var currentRoute by remember { mutableStateOf(Screen.HomeScreen.route) }
 
     items.forEachIndexed { index, Screen ->
         if (Screen.route == currentRoute) {
@@ -107,18 +106,17 @@ fun BottomNavigationBar(navController: NavController) {
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun Navigations(navController: NavHostController) {
-    val modifier : Modifier = Modifier
-    NavHost(navController, startDestination = Screen.Home.route) {
-        composable(Screen.Home.route) {
-            HomeScreen(modifier = Modifier)
+    NavHost(navController, startDestination = Screen.HomeScreen.route) {
+        composable(Screen.HomeScreen.route) {
+            HomeScreen(navController)
         }
-        composable(Screen.Search.route) {
+        composable(Screen.SearchScreen.route) {
             SearchScreen(navController)
         }
-        composable(Screen.Fav.route) {
-            FavScreen()
+        composable(Screen.FavScreen.route) {
+            FavScreen(navController)
         }
-        composable(Screen.Settings.route) {
+        composable(Screen.SettingsScreen.route) {
             SettingsScreen()
         }
     }
@@ -129,9 +127,9 @@ fun Navigations(navController: NavHostController) {
 fun CenterText(text: String) {
     Column(
         modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = text, fontSize = 32.sp)
+        Text(text = text, fontSize = 32.sp, color = Color.Red)
     }
 }

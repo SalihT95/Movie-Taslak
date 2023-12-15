@@ -13,10 +13,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import com.turkoglu.composedeneme.CenterText
+import androidx.navigation.NavController
+import com.turkoglu.composedeneme.presentation.CenterText
 
 @Composable
-fun FavScreen() {
+fun FavScreen(
+    navController: NavController
+) {
     CenterText(text = "Fav")
 }
 

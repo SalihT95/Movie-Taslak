@@ -1,6 +1,7 @@
 package com.turkoglu.composedeneme.data.di
 
-import com.turkoglu.composedeneme.data.remote.ApiService
+import com.turkoglu.composedeneme.data.remote.MovieAPI
+import com.turkoglu.composedeneme.data.repo.MovieRepositoryImpl
 import com.turkoglu.composedeneme.domain.repo.MovieRepository
 import com.turkoglu.composedeneme.util.Constants.BASE_URL
 import dagger.Module
@@ -17,12 +18,18 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMovieApi(): ApiService {
+    fun provideMovieApi(): MovieAPI {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ApiService::class.java)
+            .create(MovieAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository ( api: MovieAPI ) : MovieRepository {
+        return MovieRepositoryImpl(api)
     }
 
 }

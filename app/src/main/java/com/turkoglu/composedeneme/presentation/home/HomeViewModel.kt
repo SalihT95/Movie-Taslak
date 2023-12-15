@@ -1,46 +1,46 @@
 package com.turkoglu.composedeneme.presentation.home
 
-import androidx.lifecycle.MutableLiveData
+import android.os.Build
+import androidx.annotation.RequiresExtension
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.turkoglu.composedeneme.data.remote.APIClient
-import com.turkoglu.composedeneme.data.remote.SingleMovie
-import com.turkoglu.composedeneme.util.Constants
-import kotlinx.coroutines.launch
+import com.turkoglu.composedeneme.domain.use_case.get_movies.GetMovieUseCase
+import com.turkoglu.composedeneme.util.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val getMovieUseCase: GetMovieUseCase
+): ViewModel() {
 
-    val movieList: MutableLiveData<List<SingleMovie?>?> = MutableLiveData()
-    val isLoading = MutableLiveData(false)
-    val errorMessage: MutableLiveData<String?> = MutableLiveData()
+    private val _state = mutableStateOf<HomeScreenState>(HomeScreenState())
+    val state : State<HomeScreenState> =_state
 
     init {
-        getMovieList()
+        getMovies()
     }
 
-    fun getMovieList() {
-        isLoading.value = true
-
-        viewModelScope.launch {
-            try {
-                val response = APIClient.getClient().getMovieList(token = Constants.BEARER_TOKEN)
-
-                if (response.isSuccessful) {
-                    movieList.postValue(response.body()?.results)
-                } else {
-                    if (response.message().isNullOrEmpty()) {
-                        errorMessage.value = "An unknown error occurred"
-                    } else {
-                        errorMessage.value = response.message()
-                    }
+    private fun getMovies(){
+        getMovieUseCase.executeGetMovies().onEach {
+            when(it){
+               is Resource.Success -> {
+                   _state.value = HomeScreenState(movies = it.data ?: emptyList())
+               }
+                is Resource.Error -> {
+                    _state.value = HomeScreenState(errorMessage = it.message ?: "Error!")
+               }
+                is Resource.Loading -> {
+                    _state.value = HomeScreenState(loading = true)
                 }
-            } catch (e: Exception) {
-                errorMessage.value = e.message
             }
-            finally {
-                isLoading.value = false
-            }
-        }
+        }.launchIn(viewModelScope)
     }
+
 
 }

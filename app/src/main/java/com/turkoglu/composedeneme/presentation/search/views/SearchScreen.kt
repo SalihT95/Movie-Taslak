@@ -40,7 +40,7 @@ fun SearchScreen(
 
     Box (modifier = Modifier
         .fillMaxSize()
-        .background(Color.White)){
+    ){
 
         Column {
             SearchBar(modifier = Modifier
