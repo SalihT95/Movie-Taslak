@@ -45,7 +45,7 @@ fun HomeScreen(
 
     val painter = painterResource(id = R.drawable.kd4)
     val state = viewModel.state.value
-
+    println(state.movies)
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -57,7 +57,7 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            println("List: ${state.movies}")
+
 
         }
 
@@ -70,6 +70,8 @@ fun ImageCard(
     title: String,
     modifier: Modifier = Modifier
 ) {
+
+
     Card(
         modifier = modifier.fillMaxSize(),
         shape = RoundedCornerShape(15.dp),
