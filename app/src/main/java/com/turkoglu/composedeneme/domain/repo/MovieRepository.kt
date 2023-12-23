@@ -4,9 +4,8 @@ import com.turkoglu.composedeneme.data.remote.dto.MovieDetailDto
 import com.turkoglu.composedeneme.data.remote.dto.MoviesDto
 
 interface MovieRepository {
-
-    suspend fun getMovies(): MoviesDto
-
+    suspend fun getMovies(page : Int): MoviesDto
+    suspend fun getTopRatedMovies(page : Int): MoviesDto
     suspend fun getMovieDetail(imdbId:String): MovieDetailDto
 
 }

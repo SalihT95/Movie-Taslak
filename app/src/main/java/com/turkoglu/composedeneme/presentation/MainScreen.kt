@@ -30,6 +30,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.turkoglu.composedeneme.presentation.fav.view.FavScreen
+import com.turkoglu.composedeneme.presentation.home.HomeScreenState
+import com.turkoglu.composedeneme.presentation.home.HomeViewModel
 import com.turkoglu.composedeneme.presentation.home.view.HomeScreen
 import com.turkoglu.composedeneme.presentation.search.views.SearchScreen
 import com.turkoglu.composedeneme.presentation.settings.view.SettingsScreen
@@ -108,6 +110,7 @@ fun BottomNavigationBar(navController: NavController) {
 fun Navigations(navController: NavHostController) {
     NavHost(navController, startDestination = Screen.HomeScreen.route) {
         composable(Screen.HomeScreen.route) {
+
             HomeScreen(navController)
         }
         composable(Screen.SearchScreen.route) {

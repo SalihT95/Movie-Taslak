@@ -1,6 +1,5 @@
-package com.turkoglu.composedeneme.domain.use_case.get_movies
+package com.turkoglu.composedeneme.domain.use_case.get_toprated
 
-import android.net.http.HttpException
 import android.os.Build
 import androidx.annotation.RequiresExtension
 import com.turkoglu.composedeneme.data.remote.dto.toMovieList
@@ -12,10 +11,10 @@ import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
 
-class GetMovieUseCase @Inject constructor(private val repository: MovieRepository) {
+class GetTopRatedUseCase @Inject constructor(private val repository: MovieRepository) {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    fun executeGetMovies(page : Int) : Flow<Resource<List<Movie>>> = flow {
+    fun executeGetTopRatedMovies(page : Int) : Flow<Resource<List<Movie>>> = flow {
         try {
             emit(Resource.Loading())
             val movieList = repository.getMovies(page)

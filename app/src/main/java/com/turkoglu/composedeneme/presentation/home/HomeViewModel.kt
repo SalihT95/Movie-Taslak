@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turkoglu.composedeneme.domain.use_case.get_movies.GetMovieUseCase
+import com.turkoglu.composedeneme.domain.use_case.get_toprated.GetTopRatedUseCase
 import com.turkoglu.composedeneme.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -16,18 +17,20 @@ import javax.inject.Inject
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getMovieUseCase: GetMovieUseCase
+    private val getMovieUseCase: GetMovieUseCase,
+    private val getTopRatedUseCase: GetTopRatedUseCase
 ): ViewModel() {
 
-    private val _state = mutableStateOf<HomeScreenState>(HomeScreenState())
+    val _state = mutableStateOf(HomeScreenState())
     val state : State<HomeScreenState> =_state
+    private val page  = 1
 
     init {
         getMovies()
     }
 
     private fun getMovies(){
-        getMovieUseCase.executeGetMovies().onEach {
+        getMovieUseCase.executeGetMovies(page = page).onEach {
             when(it){
                is Resource.Success -> {
                    _state.value = HomeScreenState(movies = it.data ?: emptyList())

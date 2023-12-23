@@ -3,6 +3,7 @@ package com.turkoglu.composedeneme.data.remote
 import com.turkoglu.composedeneme.data.remote.dto.MovieDetailDto
 import com.turkoglu.composedeneme.data.remote.dto.MoviesDto
 import com.turkoglu.composedeneme.util.Constants.API_KEY
+import com.turkoglu.composedeneme.util.Constants.DEFAULT_PAGE
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,16 +15,23 @@ interface MovieAPI {
         const val SEARCH_MOVIES = "3/search/movie"
         const val MOVIE_DETAIL = "/3/movie/{movieId}"
     }
-    @GET(POPULAR_MOVIES)
+    @GET("/3/movie/popular")
     suspend fun getPopularMovies(
+        @Query("page") page : Int =DEFAULT_PAGE,
         @Query("api_key") apiKey: String = API_KEY
     ): MoviesDto
 
-    @GET(MOVIE_DETAIL)
+    @GET("/3/movie/{movieId}")
     suspend fun getMovieDetail(
         @Path("movieId") movieId: String,
         @Query("api_key") apiKey: String = API_KEY
     ): MovieDetailDto
+
+    @GET("/3/movie/top_rated")
+    suspend fun getTopRatedMovies(
+        @Query("page") page : Int =DEFAULT_PAGE,
+        @Query("api_key") apiKey: String = API_KEY
+    ): MoviesDto
 
     /*
       @GET(SEARCH_MOVIES)
