@@ -1,5 +1,10 @@
 package com.turkoglu.composedeneme.presentation.fav.view
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -20,7 +25,15 @@ import com.turkoglu.composedeneme.presentation.CenterText
 fun FavScreen(
     navController: NavController
 ) {
-    CenterText(text = "Fav")
+    Box (modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colors.background)
+    ){
+        Column {
+            CenterText(text = "Favorite")
+        }
+
+    }
 }
 
 @Composable

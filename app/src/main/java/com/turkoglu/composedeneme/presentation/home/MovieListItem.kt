@@ -1,6 +1,7 @@
 package com.turkoglu.composedeneme.presentation.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -49,7 +50,7 @@ fun MovieListItem(
                         .fillMaxSize()
                         .clip(RoundedCornerShape(bottomStart = 2.dp, bottomEnd = 2.dp))
                 )
-
+                /*
                 Surface(
                     color = Color.Black.copy(alpha = 0.6f),
                     modifier = modifier
@@ -61,7 +62,7 @@ fun MovieListItem(
                         contentDescription = null,
                         modifier = modifier.padding(12.dp).align(Alignment.TopEnd)
                     )
-                }
+                }*/
             }
 
             Column(

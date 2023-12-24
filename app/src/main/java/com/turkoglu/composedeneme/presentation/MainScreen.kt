@@ -2,12 +2,14 @@ package com.turkoglu.composedeneme.presentation
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -42,8 +44,9 @@ fun MainScreen(
     navController: NavHostController
 ) {
     Scaffold(
+        modifier = Modifier.background(MaterialTheme.colors.background),
         bottomBar = {
-            BottomAppBar(modifier = Modifier) {
+            BottomAppBar(modifier = Modifier.background(MaterialTheme.colors.background)) {
                 BottomNavigationBar(navController = navController)
             }
         }
@@ -56,7 +59,7 @@ fun MainScreen(
                     0.dp,
                     innerPadding.calculateBottomPadding()
                 )
-            )
+            ).background(MaterialTheme.colors.background)
         ) {
             Navigations(navController = navController)
         }
@@ -80,7 +83,7 @@ fun BottomNavigationBar(navController: NavController) {
         }
     }
 
-    NavigationBar {
+    NavigationBar (modifier = Modifier.background(MaterialTheme.colors.background)){
         items.forEachIndexed { index, item ->
             NavigationBarItem(
                 alwaysShowLabel = true,
