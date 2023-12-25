@@ -113,7 +113,6 @@ fun BottomNavigationBar(navController: NavController) {
 fun Navigations(navController: NavHostController) {
     NavHost(navController, startDestination = Screen.HomeScreen.route) {
         composable(Screen.HomeScreen.route) {
-
             HomeScreen(navController)
         }
         composable(Screen.SearchScreen.route) {

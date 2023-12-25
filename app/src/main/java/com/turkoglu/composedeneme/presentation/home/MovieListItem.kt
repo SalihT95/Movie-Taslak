@@ -50,6 +50,7 @@ fun MovieListItem(
                         .fillMaxSize()
                         .clip(RoundedCornerShape(bottomStart = 2.dp, bottomEnd = 2.dp))
                 )
+                println(movie.imageUrl)
                 /*
                 Surface(
                     color = Color.Black.copy(alpha = 0.6f),

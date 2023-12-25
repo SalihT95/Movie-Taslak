@@ -31,3 +31,4 @@ data class MovieDetailDto(
     val vote_count: Int
 )
 
+

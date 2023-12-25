@@ -17,7 +17,7 @@ class GetMovieDetailUseCase @Inject constructor(private val repository: MovieRep
         try {
             emit(Resource.Loading())
             val movieDetail = repository.getMovieDetail(imdbId)
-            //emit(Resource.Success(movieDetail.toMovieDetail()))
+            //emit(Resource.Success(movieDetail.id))
 
         }catch (e : IOException){
             emit(Resource.Error(message = "No internet connection"))

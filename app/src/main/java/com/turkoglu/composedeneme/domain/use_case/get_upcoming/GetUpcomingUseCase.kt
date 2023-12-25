@@ -1,4 +1,4 @@
-package com.turkoglu.composedeneme.domain.use_case.get_toprated
+package com.turkoglu.composedeneme.domain.use_case.get_upcoming
 
 import android.os.Build
 import androidx.annotation.RequiresExtension
@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
 
-class GetTopRatedUseCase @Inject constructor(private val repository: MovieRepository) {
+class GetUpcomingUseCase @Inject constructor(private val repository: MovieRepository) {
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
-    fun executeGetTopRatedMovies(page : Int) : Flow<Resource<List<Movie>>> = flow {
+    fun executeGetUpcomingMovies(page : Int) : Flow<Resource<List<Movie>>> = flow {
         try {
             emit(Resource.Loading())
-            val movieList = repository.getTopRatedMovies(page)
+            val movieList = repository.getUpcomingMovies(page)
             if (movieList.results.isNotEmpty()){
                 emit(Resource.Success(movieList.toMovieList()))
 
