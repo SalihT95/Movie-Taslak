@@ -34,13 +34,19 @@ fun MovieListItem(
     Card(
         modifier = modifier
             .height(220.dp)
-            .clickable { onMovieClick(movie) },
-        shape = RoundedCornerShape(8.dp)
+            .clickable { onMovieClick(movie) }
+            .padding(
+                start = 8.dp,
+                end = 8.dp,
+                top = 10.dp,
+                bottom = 10.dp),
+        shape = RoundedCornerShape(8.dp),
+
     ) {
         Column {
             Box(
                 modifier = modifier.weight(1f),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ) {
                 AsyncImage(
                     model = movie.imageUrl,
@@ -50,7 +56,19 @@ fun MovieListItem(
                         .fillMaxSize()
                         .clip(RoundedCornerShape(bottomStart = 2.dp, bottomEnd = 2.dp))
                 )
-                println(movie.imageUrl)
+                Column(
+                    modifier = modifier.padding(10.dp)
+                ){
+                    Text(
+                        text = movie.title,
+                        style = MaterialTheme.typography.subtitle1,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Spacer(modifier = modifier.height(4.dp))
+                    //Text(text = movie.releaseDate, style = MaterialTheme.typography.caption)
+                }
                 /*
                 Surface(
                     color = Color.Black.copy(alpha = 0.6f),
@@ -66,20 +84,7 @@ fun MovieListItem(
                 }*/
             }
 
-            Column(
-                modifier = modifier.padding(10.dp)
-            ){
-                Text(
-                    text = movie.title,
-                    style = MaterialTheme.typography.subtitle1,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Spacer(modifier = modifier.height(4.dp))
 
-                Text(text = movie.releaseDate, style = MaterialTheme.typography.caption)
-            }
         }
     }
 

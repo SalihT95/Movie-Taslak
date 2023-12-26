@@ -12,4 +12,5 @@ interface MovieRepository {
     suspend fun getUpcomingMovies(page : Int): MoviesDto
     suspend fun getMovieDetail(imdbId:String): MovieDetailDto
 
+
 }

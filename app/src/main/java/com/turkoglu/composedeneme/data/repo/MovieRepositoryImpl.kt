@@ -14,6 +14,7 @@ class MovieRepositoryImpl @Inject constructor(private val api : MovieAPI): Movie
     override suspend fun getMovieDetail(imdbId: String): MovieDetailDto {
         return api.getMovieDetail(imdbId)
     }
+
     override suspend fun getTopRatedMovies(page: Int): MoviesDto {
         return api.getTopRatedMovies(page)
     }

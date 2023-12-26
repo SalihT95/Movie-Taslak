@@ -111,7 +111,7 @@ fun BottomNavigationBar(navController: NavController) {
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun Navigations(navController: NavHostController) {
-    NavHost(navController, startDestination = Screen.HomeScreen.route) {
+    NavHost(navController= navController, startDestination = Screen.HomeScreen.route) {
         composable(Screen.HomeScreen.route) {
             HomeScreen(navController)
         }

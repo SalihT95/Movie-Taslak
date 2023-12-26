@@ -2,7 +2,7 @@ package com.turkoglu.composedeneme.presentation.home
 
 import com.turkoglu.composedeneme.domain.model.Movie
 
-data class HomeScreenState2(
+data class HomeScreenStateTopRated(
     var loading: Boolean = false,
     var refreshing: Boolean = false,
     var movies: List<Movie>  = emptyList(),
