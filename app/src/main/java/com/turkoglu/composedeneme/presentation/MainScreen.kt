@@ -29,11 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.turkoglu.composedeneme.presentation.detail.view.DetailScreen
 import com.turkoglu.composedeneme.presentation.fav.view.FavScreen
-import com.turkoglu.composedeneme.presentation.home.HomeScreenState
-import com.turkoglu.composedeneme.presentation.home.HomeViewModel
 import com.turkoglu.composedeneme.presentation.home.view.HomeScreen
 import com.turkoglu.composedeneme.presentation.search.views.SearchScreen
 import com.turkoglu.composedeneme.presentation.settings.view.SettingsScreen
@@ -113,7 +114,11 @@ fun BottomNavigationBar(navController: NavController) {
 fun Navigations(navController: NavHostController) {
     NavHost(navController= navController, startDestination = Screen.HomeScreen.route) {
         composable(Screen.HomeScreen.route) {
-            HomeScreen(navController)
+            HomeScreen(navController){ movie ->
+                navController.navigate(
+                    "Detail/${movie.id}"
+                )
+            }
         }
         composable(Screen.SearchScreen.route) {
             SearchScreen(navController)
@@ -123,6 +128,12 @@ fun Navigations(navController: NavHostController) {
         }
         composable(Screen.SettingsScreen.route) {
             SettingsScreen()
+        }
+        composable(
+            Screen.Detail.route,
+            arguments = listOf(navArgument("movieId") { type = NavType.StringType })
+        ) {
+            DetailScreen(navController)
         }
     }
 }

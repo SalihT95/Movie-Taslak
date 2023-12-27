@@ -39,7 +39,7 @@ fun HomeScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    //navigateToDetail: (Movie) -> Unit
+    navigateToDetail: (Movie) -> Unit
 
 ) {
     val state = viewModel.state.value
@@ -92,8 +92,9 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .height(200.dp)
                                     .width(180.dp),
-                                movie = movie
-                            ) {}
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
                         }
                     })
                 }
@@ -141,8 +142,9 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .height(200.dp)
                                     .width(180.dp),
-                                movie = movie
-                            ) {}
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
                         }
                     }
                 }
@@ -192,8 +194,9 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .height(200.dp)
                                     .width(180.dp),
-                                movie = movie
-                            ) {}
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
                         }
                     }
                 }
@@ -243,8 +246,9 @@ fun HomeScreen(
                                 modifier = Modifier
                                     .height(200.dp)
                                     .width(180.dp),
-                                movie = movie
-                            ) {}
+                                movie = movie,
+                                onMovieClick = {navigateToDetail(movie)}
+                            )
                         }
                     }
                 }
