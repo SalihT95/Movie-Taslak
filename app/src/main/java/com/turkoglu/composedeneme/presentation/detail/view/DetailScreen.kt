@@ -27,10 +27,10 @@ fun DetailScreen(
 
     val state = viewModel.state.value
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
 
         Text(text = state.title)
-        Spacer(modifier = Modifier.padding(20.dp))
+        Spacer(modifier = modifier.padding(20.dp))
         Text(text = state.overview)
 
 

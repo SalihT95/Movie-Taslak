@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turkoglu.composedeneme.domain.use_case.get_movie_detail.GetMovieDetailUseCase
-import com.turkoglu.composedeneme.presentation.home.HomeScreenState
 import com.turkoglu.composedeneme.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn

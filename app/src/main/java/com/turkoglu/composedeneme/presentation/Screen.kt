@@ -12,6 +12,8 @@ sealed class Screen(var route: String, val icon: ImageVector?, var title: String
     object HomeScreen : Screen("Home", Icons.Rounded.Home, "Home")
 
     object Detail : Screen("Detail/{movieId}",Icons.Rounded.Info,"Detail")
+
+    object ViewAll : Screen("ViewAll/{selectedType}",Icons.Rounded.Info,"ViewAll")
     object SearchScreen : Screen("Search", Icons.Rounded.Search, "Search")
     object FavScreen : Screen("Fav", Icons.Rounded.Favorite, "Fav")
     object SettingsScreen : Screen("Settings", Icons.Rounded.Settings, "Settings")

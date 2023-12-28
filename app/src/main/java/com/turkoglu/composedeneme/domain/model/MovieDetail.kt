@@ -1,8 +1,6 @@
 package com.turkoglu.composedeneme.domain.model
 
 import com.turkoglu.composedeneme.data.remote.dto.Genre
-import com.turkoglu.composedeneme.data.remote.dto.ProductionCompany
-import com.turkoglu.composedeneme.data.remote.dto.ProductionCountry
 
 data class MovieDetail(
     val adult: Boolean,

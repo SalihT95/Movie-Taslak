@@ -38,6 +38,7 @@ import com.turkoglu.composedeneme.presentation.fav.view.FavScreen
 import com.turkoglu.composedeneme.presentation.home.view.HomeScreen
 import com.turkoglu.composedeneme.presentation.search.views.SearchScreen
 import com.turkoglu.composedeneme.presentation.settings.view.SettingsScreen
+import com.turkoglu.composedeneme.presentation.viewall.view.ViewAllScreen
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
@@ -114,11 +115,10 @@ fun BottomNavigationBar(navController: NavController) {
 fun Navigations(navController: NavHostController) {
     NavHost(navController= navController, startDestination = Screen.HomeScreen.route) {
         composable(Screen.HomeScreen.route) {
-            HomeScreen(navController){ movie ->
-                navController.navigate(
-                    "Detail/${movie.id}"
-                )
-            }
+            HomeScreen(navController, navigateToDetail = {movie ->
+                navController.navigate("Detail/${movie.id}") })
+
+
         }
         composable(Screen.SearchScreen.route) {
             SearchScreen(navController)
@@ -129,12 +129,21 @@ fun Navigations(navController: NavHostController) {
         composable(Screen.SettingsScreen.route) {
             SettingsScreen()
         }
-        composable(
-            Screen.Detail.route,
+        composable(Screen.Detail.route,
             arguments = listOf(navArgument("movieId") { type = NavType.StringType })
         ) {
             DetailScreen(navController)
         }
+        composable(Screen.ViewAll.route,
+            arguments = listOf(navArgument("selectedType") { type = NavType.StringType })
+        ) {
+            ViewAllScreen(navController){
+                navController.navigate(
+                    "Detail/${it.id}"
+                )
+            }
+        }
+
     }
 }
 

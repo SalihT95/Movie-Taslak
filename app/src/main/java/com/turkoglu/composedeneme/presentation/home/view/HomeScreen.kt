@@ -40,7 +40,6 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToDetail: (Movie) -> Unit
-
 ) {
     val state = viewModel.state.value
     val stateTopRated = viewModel.stateTopRated.value
@@ -48,15 +47,15 @@ fun HomeScreen(
     val stateUpcoming = viewModel.stateUpcoming.value
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
 
         LazyColumn {
             //-------------------TopRated-----------------------
             item(content = {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
                 Row(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -67,18 +66,15 @@ fun HomeScreen(
                         text = "View All",
                         color = Color.White,
                         fontSize = 18.sp,
-                        modifier = Modifier.clickable {
-                            //navigate to viewAll
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"top_rated"}")
                         })
 
                 }
-
-
-                //Spacer(modifier = Modifier.height(8.dp))
             })
             item(content = {
                 Box(
-                    Modifier
+                    modifier
                         .fillMaxWidth()
                         .height(220.dp),
                     contentAlignment = Alignment.Center
@@ -89,7 +85,7 @@ fun HomeScreen(
                             stateTopRated.movies,
                             key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
                             MovieListItem(
-                                modifier = Modifier
+                                modifier = modifier
                                     .height(200.dp)
                                     .width(180.dp),
                                 movie = movie,
@@ -101,9 +97,9 @@ fun HomeScreen(
             })
             // ----------------Popular-----------------------
             item {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
                 Row(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -114,18 +110,18 @@ fun HomeScreen(
                         text = "View All",
                         color = Color.White,
                         fontSize = 18.sp,
-                        modifier = Modifier.clickable {
-                            //navigate to viewAll
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"popular"}")
                         })
 
                 }
             }
 
             item {
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = modifier.height(5.dp))
 
                 Box(
-                    Modifier
+                    modifier
                         .fillMaxWidth()
                         .height(210.dp),
                     contentAlignment = Alignment.Center
@@ -139,7 +135,7 @@ fun HomeScreen(
                             state.movies,
                             key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
                             MovieListItem(
-                                modifier = Modifier
+                                modifier = modifier
                                     .height(200.dp)
                                     .width(180.dp),
                                 movie = movie,
@@ -148,12 +144,12 @@ fun HomeScreen(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
             }
             // --------------NowPlaying----------------------
 
             item {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -166,18 +162,18 @@ fun HomeScreen(
                         text = "View All",
                         color = Color.White,
                         fontSize = 18.sp,
-                        modifier = Modifier.clickable {
-                            //navigate to viewAll
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"now_playing"}")
                         })
 
                 }
             }
 
             item {
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = modifier.height(5.dp))
 
                 Box(
-                    Modifier
+                    modifier
                         .fillMaxWidth()
                         .height(210.dp),
                     contentAlignment = Alignment.Center
@@ -191,7 +187,7 @@ fun HomeScreen(
                             stateNowPlaying.movies,
                             key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
                             MovieListItem(
-                                modifier = Modifier
+                                modifier = modifier
                                     .height(200.dp)
                                     .width(180.dp),
                                 movie = movie,
@@ -200,14 +196,14 @@ fun HomeScreen(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
             }
             //------------Upcoming-----------------
 
             item {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
                 Row(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -218,18 +214,18 @@ fun HomeScreen(
                         text = "View All",
                         color = Color.White,
                         fontSize = 18.sp,
-                        modifier = Modifier.clickable {
-                            //navigate to viewAll
+                        modifier = modifier.clickable {
+                            navController.navigate("ViewAll/${"upcoming"}")
                         })
 
                 }
             }
 
             item {
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = modifier.height(5.dp))
 
                 Box(
-                    Modifier
+                    modifier
                         .fillMaxWidth()
                         .height(210.dp),
                     contentAlignment = Alignment.Center
@@ -243,7 +239,7 @@ fun HomeScreen(
                             stateUpcoming.movies,
                             key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
                             MovieListItem(
-                                modifier = Modifier
+                                modifier = modifier
                                     .height(200.dp)
                                     .width(180.dp),
                                 movie = movie,
@@ -252,7 +248,7 @@ fun HomeScreen(
                         }
                     }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
             }
 
         }
