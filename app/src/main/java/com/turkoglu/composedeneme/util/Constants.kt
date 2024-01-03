@@ -9,4 +9,5 @@ object Constants {
     //const val  BEARER_TOKEN = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMDI5OGI1M2ZlMWIyYjBhOWIyNWQ0MTVmNzQyYWNiNSIsInN1YiI6IjY1NWI3MzRjYjU0MDAyMTRkM2NjMmViNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n9oeea5w_wstakN7sZ8Mq854ufNtiIi0JRqGB0kViSI"
 
     //https://api.themoviedb.org/3/movie/157336?api_key=a0298b53fe1b2b0a9b25d415f742acb5
+    // ufuk api key = 65ee25f16e7786b3e3b5f3ef956de861
 }

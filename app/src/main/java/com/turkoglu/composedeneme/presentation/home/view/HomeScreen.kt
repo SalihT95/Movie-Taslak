@@ -1,6 +1,7 @@
 package com.turkoglu.composedeneme.presentation.home.view
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,9 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,11 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.turkoglu.composedeneme.domain.model.Movie
 import com.turkoglu.composedeneme.presentation.home.HomeViewModel
 import com.turkoglu.composedeneme.presentation.home.MovieListItem
-
-
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun HomeScreen(
@@ -41,238 +39,111 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToDetail: (Movie) -> Unit
 ) {
-    val state = viewModel.state.value
-    val stateTopRated = viewModel.stateTopRated.value
-    val stateNowPlaying = viewModel.stateNowPlaying.value
-    val stateUpcoming = viewModel.stateUpcoming.value
-
+    val popularMovies = viewModel.popularState.value.collectAsLazyPagingItems()
+    val topratedMovies = viewModel.topretedState.value.collectAsLazyPagingItems()
+    val nowPlayingMovies = viewModel.notPlayingState.value.collectAsLazyPagingItems()
+    val upCommingMovies = viewModel.upCommingState.value.collectAsLazyPagingItems()
+    val actionMovies = viewModel.actionState.value.collectAsLazyPagingItems()
+    val animationMovies = viewModel.animationState.value.collectAsLazyPagingItems()
+    val comedyMovies = viewModel.comedystate.value.collectAsLazyPagingItems()
+    val dramaMovies = viewModel.dramaState.value.collectAsLazyPagingItems()
+    val fantasyMovies = viewModel.fantasyState.value.collectAsLazyPagingItems()
+    val historyMovies = viewModel.historyState.value.collectAsLazyPagingItems()
+    val warMovie = viewModel.warState.value.collectAsLazyPagingItems()
     Column(
         modifier = modifier.fillMaxSize()
     ) {
-
         LazyColumn {
             //-------------------TopRated-----------------------
-            item(content = {
-                Spacer(modifier = modifier.height(10.dp))
-                Row(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "Trending today", color = Color.White, fontSize = 18.sp)
-
-                    Text(
-                        text = "View All",
-                        color = Color.White,
-                        fontSize = 18.sp,
-                        modifier = modifier.clickable {
-                            navController.navigate("ViewAll/${"top_rated"}")
-                        })
-
-                }
-            })
-            item(content = {
-                Box(
-                    modifier
-                        .fillMaxWidth()
-                        .height(220.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LazyRow(content = {
-
-                        itemsIndexed(
-                            stateTopRated.movies,
-                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
-                            MovieListItem(
-                                modifier = modifier
-                                    .height(200.dp)
-                                    .width(180.dp),
-                                movie = movie,
-                                onMovieClick = {navigateToDetail(movie)}
-                            )
-                        }
-                    })
-                }
-            })
+            item(content = { CustomText("Top Rated" ,modifier , navController) })
+            item(content = { CustomMovies(type = topratedMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
             // ----------------Popular-----------------------
-            item {
-                Spacer(modifier = modifier.height(10.dp))
-                Row(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "Popular", color = Color.White, fontSize = 18.sp)
-
-                    Text(
-                        text = "View All",
-                        color = Color.White,
-                        fontSize = 18.sp,
-                        modifier = modifier.clickable {
-                            navController.navigate("ViewAll/${"popular"}")
-                        })
-
-                }
-            }
-
-            item {
-                Spacer(modifier = modifier.height(5.dp))
-
-                Box(
-                    modifier
-                        .fillMaxWidth()
-                        .height(210.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LazyHorizontalGrid(
-                        rows = GridCells.Fixed(1),
-
-                        ) {
-
-                        itemsIndexed(
-                            state.movies,
-                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
-                            MovieListItem(
-                                modifier = modifier
-                                    .height(200.dp)
-                                    .width(180.dp),
-                                movie = movie,
-                                onMovieClick = {navigateToDetail(movie)}
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = modifier.height(10.dp))
-            }
+            item { CustomText(name = "Popular", modifier =modifier , navController =navController ) }
+            item(content = { CustomMovies(type = popularMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
             // --------------NowPlaying----------------------
-
-            item {
-                Spacer(modifier = modifier.height(10.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "Now Playing", color = Color.White, fontSize = 18.sp)
-
-                    Text(
-                        text = "View All",
-                        color = Color.White,
-                        fontSize = 18.sp,
-                        modifier = modifier.clickable {
-                            navController.navigate("ViewAll/${"now_playing"}")
-                        })
-
-                }
-            }
-
-            item {
-                Spacer(modifier = modifier.height(5.dp))
-
-                Box(
-                    modifier
-                        .fillMaxWidth()
-                        .height(210.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LazyHorizontalGrid(
-                        rows = GridCells.Fixed(1),
-
-                        ) {
-
-                        itemsIndexed(
-                            stateNowPlaying.movies,
-                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
-                            MovieListItem(
-                                modifier = modifier
-                                    .height(200.dp)
-                                    .width(180.dp),
-                                movie = movie,
-                                onMovieClick = {navigateToDetail(movie)}
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = modifier.height(10.dp))
-            }
+            item { CustomText(name = "Now Playing", modifier = modifier, navController = navController ) }
+            item(content = { CustomMovies(type = nowPlayingMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
             //------------Upcoming-----------------
-
-            item {
-                Spacer(modifier = modifier.height(10.dp))
-                Row(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "UpComing", color = Color.White, fontSize = 18.sp)
-
-                    Text(
-                        text = "View All",
-                        color = Color.White,
-                        fontSize = 18.sp,
-                        modifier = modifier.clickable {
-                            navController.navigate("ViewAll/${"upcoming"}")
-                        })
-
-                }
-            }
-
-            item {
-                Spacer(modifier = modifier.height(5.dp))
-
-                Box(
-                    modifier
-                        .fillMaxWidth()
-                        .height(210.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    LazyHorizontalGrid(
-                        rows = GridCells.Fixed(1),
-
-                        ) {
-
-                        itemsIndexed(
-                            stateUpcoming.movies,
-                            key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
-                            MovieListItem(
-                                modifier = modifier
-                                    .height(200.dp)
-                                    .width(180.dp),
-                                movie = movie,
-                                onMovieClick = {navigateToDetail(movie)}
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = modifier.height(10.dp))
-            }
-
+            item { CustomText(name = "Upcoming", modifier =modifier , navController =navController ) }
+            item(content = { CustomMovies(type = upCommingMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
+            //---Action
+            item { CustomText(name = "Action", modifier = modifier, navController =navController ) }
+            item(content = { CustomMovies(type = actionMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
+            //---Animation
+            item { CustomText(name = "Animation", modifier = modifier , navController = navController) }
+            item(content = { CustomMovies(type = animationMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
+            //---Comedy
+            item { CustomText(name = "Comedy", modifier = modifier, navController = navController) }
+            item(content = { CustomMovies(type = comedyMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
+            //---Drama
+            item { CustomText(name = "Drama", modifier = modifier, navController = navController) }
+            item(content = { CustomMovies(type = dramaMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
+            //---Fantasy
+            item { CustomText(name = "Fantasy", modifier = modifier, navController = navController) }
+            item(content = { CustomMovies(type = fantasyMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
+            //---History
+            item { CustomText(name = "History", modifier = modifier, navController = navController) }
+            item(content = { CustomMovies(type = historyMovies, modifier = modifier, navigateToDetail = navigateToDetail) })
+            //---War
+            item { CustomText(name = "War", modifier = modifier, navController = navController) }
+            item(content = { CustomMovies(type = warMovie, modifier = modifier, navigateToDetail = navigateToDetail) })
         }
     }
-
-    /*
-    Box(
+}
+@Composable
+fun CustomText(name : String ,modifier: Modifier , navController: NavController) {
+    Spacer(modifier = modifier.height(10.dp))
+    Row(
         modifier = modifier
-            .fillMaxSize()
-            .background(color = MaterialTheme.colors.background)
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp), // Sayfa kenarlarından padding
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            itemsIndexed(state.movies, key = { _: Int, movie: Movie -> movie.id }) { index, movie ->
-                MovieListItem(movie = movie, onMovieClick = {})
-                println(movie.imageUrl)
+        Text(text = name, color = Color.White, fontSize = 18.sp)
+
+        Text(
+            text = "View All",
+            color = Color.White,
+            fontSize = 18.sp,
+            modifier = modifier.clickable {
+                navController.navigate("ViewAll/${name}")
+            })
+    }
+}
+
+@Composable
+fun CustomMovies(type : LazyPagingItems<Movie> , modifier: Modifier ,navigateToDetail: (Movie) -> Unit) {
+    val uniqueIds = mutableSetOf<Int>()
+    Box(
+        modifier
+            .fillMaxWidth()
+            .height(220.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        LazyRow(content = {
+            itemsIndexed(
+                type.itemSnapshotList.items,
+                key = { index, movie ->
+                    val id = movie.id ?: -1
+                    if (uniqueIds.contains(id)) {
+                        val previousMovie = uniqueIds.find { it == id }
+                        uniqueIds.remove(previousMovie)
+                    } else {
+                        uniqueIds.add(id)
+                    }
+                    val key = "${movie.id?.toString()}_${index}"
+                    Log.d("LazyRowKey", "Key: $key, Index: $index, Movie ID: ${movie.id}")
+                    key
+                }
+            ) { _, movie ->
+                MovieListItem(modifier = modifier
+                    .height(200.dp)
+                    .width(180.dp),
+                    movie = movie,
+                    onMovieClick = {navigateToDetail(movie)}
+                )
             }
+        })
+    }
 
-
-        }
-    }*/
 }

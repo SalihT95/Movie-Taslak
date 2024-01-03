@@ -1,8 +1,6 @@
 package com.turkoglu.composedeneme.data.di
 
 import com.turkoglu.composedeneme.data.remote.MovieAPI
-import com.turkoglu.composedeneme.data.repo.MovieRepositoryImpl
-import com.turkoglu.composedeneme.domain.repo.MovieRepository
 import com.turkoglu.composedeneme.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -26,10 +24,14 @@ object AppModule {
             .create(MovieAPI::class.java)
     }
 
+    /*
     @Provides
     @Singleton
-    fun provideMovieRepository ( api: MovieAPI ) : MovieRepository {
+    fun provideMovieRepository ( api: MovieAPI ) : MovieRepositoryImpl {
         return MovieRepositoryImpl(api)
     }
+     */
+
+
 
 }

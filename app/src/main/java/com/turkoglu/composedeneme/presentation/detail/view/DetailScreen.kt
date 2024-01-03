@@ -47,7 +47,8 @@ fun DetailScreen(
         )
         FilmImageBanner(
             rating = state.voteAverage.toFloat(),
-            viewModel = viewModel
+            viewModel = viewModel,
+            navController = navController
         )
 
     }
